@@ -4,15 +4,11 @@ const MODERN_ACTIVITY= 15;
 const HALF_LIFE_PERIOD= 5730;
 
 module.exports = function dateSample(sampleActivity) {
-  console.log(`activity123123: ` + sampleActivity)
-  if (!sampleActivity) {
-    return false
-  }
-  return 122
-};
+  if (typeof sampleActivity !== "string" || /[A-Za-z]/.test(sampleActivity)
+    || sampleActivity <= 0 || sampleActivity > MODERN_ACTIVITY)
+    return false;
 
-// function dateSample(sampleActivity) {
-//   console.log(sampleActivity)
-// };
-//
-// console.log(dateSample())
+  let r = Math.LN2.toFixed(3) / HALF_LIFE_PERIOD;
+  let y = Math.log(MODERN_ACTIVITY / parseFloat(sampleActivity)) / r;
+  return Math.ceil(y);
+};
